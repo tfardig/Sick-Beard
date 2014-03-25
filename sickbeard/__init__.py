@@ -149,6 +149,7 @@ USE_NZBS = None
 USE_TORRENTS = None
 
 NZB_METHOD = None
+TORRENT_METHOD = None
 NZB_DIR = None
 USENET_RETENTION = None
 DOWNLOAD_PROPERS = None
@@ -971,6 +972,7 @@ def save_config():
     new_config['General']['use_nzbs'] = int(USE_NZBS)
     new_config['General']['use_torrents'] = int(USE_TORRENTS)
     new_config['General']['nzb_method'] = NZB_METHOD
+    new_config['General']['torrent_method'] = TORRENT_METHOD
     new_config['General']['usenet_retention'] = int(USENET_RETENTION)
     new_config['General']['search_frequency'] = int(SEARCH_FREQUENCY)
     new_config['General']['download_propers'] = int(DOWNLOAD_PROPERS)
@@ -1052,6 +1054,12 @@ def save_config():
     new_config['SABnzbd']['sab_apikey'] = SAB_APIKEY
     new_config['SABnzbd']['sab_category'] = SAB_CATEGORY
     new_config['SABnzbd']['sab_host'] = SAB_HOST
+
+    new_config['Transmission'] = {}
+    new_config['Transmission']['transmission_username'] = TRANSMISSION_USERNAME
+    new_config['Transmission']['transmission_password'] = TRANSMISSION_PASSWORD
+    new_config['Transmission']['transmission_download_dir'] = TRANSMISSION_DOWNLOAD_DIR
+    new_config['Transmission']['transmission_host'] = TRANSMISSION_HOST
 
     new_config['NZBget'] = {}
     new_config['NZBget']['nzbget_username'] = NZBGET_USERNAME
