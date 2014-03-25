@@ -737,7 +737,8 @@ class ConfigSearch:
     @cherrypy.expose
     def saveSearch(self, use_nzbs=None, use_torrents=None, nzb_dir=None, sab_username=None, sab_password=None,
                        sab_apikey=None, sab_category=None, sab_host=None, nzbget_username=None, nzbget_password=None, nzbget_category=None, nzbget_host=None,
-                       torrent_dir=None, nzb_method=None, usenet_retention=None, search_frequency=None, download_propers=None):
+                       torrent_dir=None, nzb_method=None, usenet_retention=None, search_frequency=None, download_propers=None,
+                       torrent_method=None, transmission_username=None, transmission_password=None, transmission_download_dir=None, transmission_host=None):
 
         results = []
 
@@ -772,9 +773,15 @@ class ConfigSearch:
 
         # Torrent Search
         sickbeard.USE_TORRENTS = config.checkbox_to_value(use_torrents)
+        sickbeard.TORRENT_METHOD = torrent_method
 
         if not config.change_TORRENT_DIR(torrent_dir):
             results += ["Unable to create directory " + os.path.normpath(torrent_dir) + ", directory not changed."]
+
+        sickbeard.TRANSMISSION_USERNAME = transmission_username
+        sickbeard.TRANSMISSION_PASSWORD = transmission_password
+        sickbeard.TRANSMISSION_DOWNLOAD_DIR = transmission_download_dir
+        sickbeard.TRANSMISSION_HOST = config.clean_url(transmission_host)
 
         sickbeard.save_config()
 
