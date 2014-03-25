@@ -37,6 +37,8 @@ $(document).ready(function(){
 
     $('#nzb_method').change($(this).nzb_method_handler);
 
+    $(this).nzb_method_handler();
+
     $.fn.torrent_method_handler = function() {
         var selectedProvider = $('#torrent_method :selected').val();
 
@@ -51,7 +53,8 @@ $(document).ready(function(){
 
     $('#torrent_method').change($(this).torrent_method_handler);
 
-    $(this).nzb_method_handler();
+    $(this).torrent_method_handler();
+
 
     $('#testSABnzbd').click(function(){
         $('#testSABnzbd-result').html(loading);
