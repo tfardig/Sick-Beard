@@ -116,7 +116,14 @@ def snatchEpisode(result, endStatus=SNATCHED):
 
     # torrents are always saved to disk
     elif result.resultType == "torrent":
-        dlResult = _downloadResult(result)
+        if sickbeard.TORRENT_METHOD == "blackhole":
+            dlResult = _downloadResult(result)
+        elif sickbeard.TORRENT_METHOD == "transmission":
+            dlResult = transmission.sendTorrent(result)
+        else:
+            logger.log(u"Unknown torrent action specified in config: " + sickbeard.TORRENT_METHOD, logger.ERROR)
+            dlResult = False
+
     else:
         logger.log(u"Unknown result type, unable to download it", logger.ERROR)
         dlResult = False
