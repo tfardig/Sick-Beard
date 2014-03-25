@@ -114,7 +114,7 @@ def snatchEpisode(result, endStatus=SNATCHED):
             logger.log(u"Unknown NZB action specified in config: " + sickbeard.NZB_METHOD, logger.ERROR)
             dlResult = False
 
-    # torrents are always saved to disk
+    # torrents can be sent to transmission or saved to disk
     elif result.resultType == "torrent":
         if sickbeard.TORRENT_METHOD == "blackhole":
             dlResult = _downloadResult(result)
