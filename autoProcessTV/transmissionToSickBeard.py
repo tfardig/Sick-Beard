@@ -1,6 +1,7 @@
 #!usr/bin/python
 
 import os
+import autoProcessTV
 
 tvDownloadFolder = '/volume1/downloads/tv/complete'
 movieDownloadFolder = '/volume1/downloads/movies/complete'
@@ -18,7 +19,7 @@ def torrent_completed(torrentDir, torrentName):
         notify_couchpotato(torrentDir)
 
 def notify_sickbeard(torrentDir):
-    print 'Notified sickbeard: ' + torrentDir
+    autoProcessTV.processEpisode(torrentDir)
 
 def notify_couchpotato(torrentDir):
     print 'Notified couchpotato: ' + torrentDir

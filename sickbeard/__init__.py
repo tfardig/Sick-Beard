@@ -206,6 +206,11 @@ NZBGET_PASSWORD = None
 NZBGET_CATEGORY = None
 NZBGET_HOST = None
 
+TRANSMISSION_USERNAME = None
+TRANSMISSION_PASSWORD = None
+TRANSMISSION_HOST = None
+TRANSMISSION_DOWNLOAD_DIR = None
+
 USE_XBMC = False
 XBMC_NOTIFY_ONSNATCH = False
 XBMC_NOTIFY_ONDOWNLOAD = False
@@ -314,8 +319,9 @@ def initialize(consoleLogging=True):
     with INIT_LOCK:
 
         global ACTUAL_LOG_DIR, LOG_DIR, WEB_PORT, WEB_LOG, WEB_ROOT, WEB_USERNAME, WEB_PASSWORD, WEB_HOST, WEB_IPV6, USE_API, API_KEY, ENABLE_HTTPS, HTTPS_CERT, HTTPS_KEY, \
-                USE_NZBS, USE_TORRENTS, NZB_METHOD, NZB_DIR, DOWNLOAD_PROPERS, \
+                USE_NZBS, USE_TORRENTS, NZB_METHOD, TORRENT_METHOD, NZB_DIR, DOWNLOAD_PROPERS, \
                 SAB_USERNAME, SAB_PASSWORD, SAB_APIKEY, SAB_CATEGORY, SAB_HOST, \
+                TRANSMISSION_USERNAME, TRANSMISSION_PASSWORD, TRANSMISSION_HOST, TRANSMISSION_DOWNLOAD_DIR, \
                 NZBGET_USERNAME, NZBGET_PASSWORD, NZBGET_CATEGORY, NZBGET_HOST, currentSearchScheduler, backlogSearchScheduler, \
                 USE_XBMC, XBMC_NOTIFY_ONSNATCH, XBMC_NOTIFY_ONDOWNLOAD, XBMC_UPDATE_FULL, XBMC_UPDATE_ONLYFIRST, \
                 XBMC_UPDATE_LIBRARY, XBMC_HOST, XBMC_USERNAME, XBMC_PASSWORD, \
@@ -437,6 +443,10 @@ def initialize(consoleLogging=True):
         if NZB_METHOD not in ('blackhole', 'sabnzbd', 'nzbget'):
             NZB_METHOD = 'blackhole'
 
+        TORRENT_METHOD = check_setting_str(CFG, 'General', 'torrent_method', 'blackhole')
+        if TORRENT_METHOD not in ('blackhole', 'transmission'):
+            TORRENT_METHOD = 'blackhole'
+
         DOWNLOAD_PROPERS = bool(check_setting_int(CFG, 'General', 'download_propers', 1))
         USENET_RETENTION = check_setting_int(CFG, 'General', 'usenet_retention', 500)
         SEARCH_FREQUENCY = check_setting_int(CFG, 'General', 'search_frequency', DEFAULT_SEARCH_FREQUENCY)
@@ -519,6 +529,12 @@ def initialize(consoleLogging=True):
         SAB_APIKEY = check_setting_str(CFG, 'SABnzbd', 'sab_apikey', '')
         SAB_CATEGORY = check_setting_str(CFG, 'SABnzbd', 'sab_category', 'tv')
         SAB_HOST = check_setting_str(CFG, 'SABnzbd', 'sab_host', '')
+
+        CheckSection(CFG, 'Transmission')
+        TRANSMISSION_USERNAME = check_setting_str(CFG, 'Transmission', 'transmission_username', '')
+        TRANSMISSION_PASSWORD = check_setting_str(CFG, 'Transmission', 'transmission_password', '')
+        TRANSMISSION_DOWNLOAD_DIR = check_setting_str(CFG, 'Transmission', 'transmission_download_dir', '')
+        TRANSMISSION_HOST = check_setting_str(CFG, 'Transmission', 'transmission_host', '')
 
         CheckSection(CFG, 'NZBget')
         NZBGET_USERNAME = check_setting_str(CFG, 'NZBget', 'nzbget_username', 'nzbget')
