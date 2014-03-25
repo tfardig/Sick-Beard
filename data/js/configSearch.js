@@ -37,6 +37,20 @@ $(document).ready(function(){
 
     $('#nzb_method').change($(this).nzb_method_handler);
 
+    $.fn.torrent_method_handler = function() {
+        var selectedProvider = $('#torrent_method :selected').val();
+
+        if (selectedProvider == "blackhole") {
+            $('#torrent_blackhole_settings').show();
+            $('#transmission_settings').hide();
+        } else if (selectedProvider == "transmission") {
+            $('#torrent_blackhole_settings').hide();
+            $('#transmission_settings').show();
+        }
+    }
+
+    $('#torrent_method').change($(this).torrent_method_handler);
+
     $(this).nzb_method_handler();
 
     $('#testSABnzbd').click(function(){
